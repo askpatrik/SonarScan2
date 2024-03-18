@@ -18,6 +18,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 17
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
       # Removed caching steps
       - name: Install SonarQube scanner
         shell: powershell
@@ -32,6 +34,3 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"askpatrik_SonarScan_a0a8e83a-dff9-4368-82a4-79abb62944c7" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
           msbuild /p:Configuration=Debug /p:Platform="Any CPU" # Use MSBuild for .NET Framework projects
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-
-
-          
